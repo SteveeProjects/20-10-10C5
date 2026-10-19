@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fdf8f3">
+<title>10C5 — Món quà nhỏ, yêu thương nhiều</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main id="app">
+
+  <!-- ============ INTRO ============ -->
+  <section class="screen" data-screen="intro" aria-label="Màn hình chào mừng">
+    <div class="decor" aria-hidden="true">
+      <svg class="decor__flower decor__flower--tl" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="18" r="9" fill="currentColor" opacity=".55"/>
+        <circle cx="18" cy="30" r="9" fill="currentColor" opacity=".55"/>
+        <circle cx="42" cy="30" r="9" fill="currentColor" opacity=".55"/>
+        <circle cx="30" cy="42" r="9" fill="currentColor" opacity=".55"/>
+        <circle cx="30" cy="30" r="5" fill="currentColor"/>
+      </svg>
+      <svg class="decor__flower decor__flower--br" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="18" r="9" fill="currentColor" opacity=".45"/>
+        <circle cx="18" cy="30" r="9" fill="currentColor" opacity=".45"/>
+        <circle cx="42" cy="30" r="9" fill="currentColor" opacity=".45"/>
+        <circle cx="30" cy="42" r="9" fill="currentColor" opacity=".45"/>
+        <circle cx="30" cy="30" r="5" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="container container--center">
+      <h1 id="introHeadline" class="intro__headline" aria-label="Happy Women's Day"></h1>
+      <p id="introDate" class="intro__date" hidden>20 · 10</p>
+      <p id="introSub" class="intro__sub" hidden>
+        Nhân ngày Phụ nữ Việt Nam 20/10, tập thể lớp 10C5 gửi đến bạn
+        những lời chúc chân thành và ấm áp nhất.
+      </p>
+      <div class="actions actions--center">
+        <button id="startBtn" class="btn btn--primary" type="button" hidden>Bắt đầu khám phá</button>
+        <button id="skipBtn" class="btn btn--ghost btn--sm" type="button">Bỏ qua</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECIPIENT ============ -->
+  <section class="screen" data-screen="recipient" aria-label="Nhập tên người nhận">
+    <div class="decor" aria-hidden="true">
+      <svg class="decor__flower decor__flower--tl" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="18" r="9" fill="currentColor" opacity=".35"/>
+        <circle cx="18" cy="30" r="9" fill="currentColor" opacity=".35"/>
+        <circle cx="42" cy="30" r="9" fill="currentColor" opacity=".35"/>
+        <circle cx="30" cy="42" r="9" fill="currentColor" opacity=".35"/>
+        <circle cx="30" cy="30" r="5" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="container container--center">
+      <h2 class="title">Món quà này dành cho ai nhỉ?</h2>
+      <p class="hint">Nhập họ và tên đầy đủ của bạn hoặc của Cô giáo để mở lá thư tương ứng.</p>
+
+      <form id="recipientForm" class="form" novalidate>
+        <p class="form__warning" role="note">
+          Lưu ý: Vui lòng nhập đúng họ và tên của bạn. Đừng nhập tên người khác nhé!
+        </p>
+
+        <label for="recipientInput" class="form__label">Họ và tên</label>
+        <input
+          id="recipientInput"
+          class="form__input"
+          type="text"
+          name="recipient"
+          autocomplete="off"
+          autocapitalize="words"
+          spellcheck="false"
+          placeholder="Ví dụ: Nguyễn Thị Thu Hương"
+          required
+        >
+
+        <p id="recipientError" class="form__error" role="alert" hidden></p>
+
+        <button id="recipientRetryBtn" class="btn btn--ghost btn--sm" type="button" hidden>
+          Nhập lại tên
+        </button>
+
+        <button type="submit" class="btn btn--primary">Mở món quà</button>
+      </form>
+
+      <div id="recipientPicker" class="picker" hidden>
+        <p class="picker__title">Có nhiều người trùng tên sau khi chuẩn hoá. Bạn chọn đúng người nhé:</p>
+        <div id="recipientPickerList" class="picker__list"></div>
+        <button id="recipientPickerCancel" class="btn btn--ghost btn--sm" type="button">Huỷ</button>
+      </div>
+
+      <p class="hint hint--small">
+        Không tìm thấy tên? Hãy hỏi lớp trưởng hoặc người phụ trách để bổ sung.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ LETTER ============ -->
+  <section class="screen" data-screen="letter" aria-label="Lá thư cá nhân hóa">
+    <div class="container">
+
+      <div id="envelopeView" class="envelope-view">
+        <div class="envelope" aria-hidden="true">
+          <div class="envelope__body"></div>
+          <div class="envelope__flap"></div>
+          <div class="envelope__seal">10C5</div>
+        </div>
+        <p class="envelope__hint">Có một lá thư nhỏ đang chờ bạn…</p>
+        <button id="openEnvelopeBtn" class="btn btn--primary" type="button">Mở thư</button>
+      </div>
+
+      <article id="letterView" class="letter" hidden>
+        <div class="letter__paper">
+          <h2 id="letterTitle" class="letter__title"></h2>
+          <div id="letterBody" class="letter__body"></div>
+          <p id="letterSignature" class="letter__signature"></p>
+        </div>
+        <div class="letter__tools">
+          <button id="showAllBtn" class="btn btn--ghost btn--sm" type="button" hidden>
+            Hiện toàn bộ thư
+          </button>
+        </div>
+        <div id="letterFooter" class="actions actions--center" hidden>
+          <button id="toVideoIntroBtn" class="btn btn--primary" type="button">
+            Tiếp tục →
+          </button>
+        </div>
+      </article>
+
+      <div class="screen__nav">
+        <button id="backToRecipientBtn" class="btn btn--ghost btn--sm" type="button">
+          ← Nhập lại tên khác
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO INTRO ============ -->
+  <section class="screen" data-screen="video-intro" aria-label="Dẫn vào video">
+    <div class="container container--center">
+      <p class="transition-text">
+        Nhưng món quà này còn có một câu chuyện phía sau…
+      </p>
+      <div class="actions actions--center">
+        <button id="toVideoBtn" class="btn btn--primary" type="button">Xem hậu trường</button>
+        <button id="backFromVideoIntro" class="btn btn--ghost btn--sm" type="button">← Quay lại</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO ============ -->
+  <section class="screen" data-screen="video" aria-label="Video hậu trường">
+    <div class="container">
+      <h2 class="title title--sm">Hậu trường món quà 10C5</h2>
+
+      <div class="video-wrap">
+        <video
+          id="btsVideo"
+          class="video"
+          controls
+          playsinline
+          preload="metadata"
+          poster="assets/images/poster.jpg"
+        >
+          <source src="assets/video/behind-the-scenes.mp4" type="video/mp4">
+          Trình duyệt của bạn không hỗ trợ thẻ video.
+        </video>
+
+        <div id="videoFallback" class="video-fallback" hidden>
+          <p class="video-fallback__title">Video hậu trường sẽ được cập nhật</p>
+          <p class="video-fallback__hint">
+            File <code>assets/video/behind-the-scenes.mp4</code> chưa có.
+            Xem hướng dẫn trong <code>README.md</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="actions actions--center">
+        <button id="toFinalBtn" class="btn btn--primary" type="button">Đi tới lời chúc cuối</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL ============ -->
+  <section class="screen" data-screen="final" aria-label="Lời chúc cuối">
+    <div class="decor" aria-hidden="true">
+      <svg class="decor__flower decor__flower--tl" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="18" r="9" fill="currentColor" opacity=".5"/>
+        <circle cx="18" cy="30" r="9" fill="currentColor" opacity=".5"/>
+        <circle cx="42" cy="30" r="9" fill="currentColor" opacity=".5"/>
+        <circle cx="30" cy="42" r="9" fill="currentColor" opacity=".5"/>
+        <circle cx="30" cy="30" r="5" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="container container--center">
+      <p class="final__eyebrow">Happy Women's Day — 20/10</p>
+      <p class="final__message">
+        Một lời chúc chung gửi đến Cô và tất cả các bạn nữ của lớp 10C5:
+        chúc mọi người luôn mạnh khỏe, hạnh phúc và rạng rỡ.
+        Cảm ơn vì đã là một phần thật đẹp của tập thể chúng ta.
+      </p>
+      <p class="final__sign">Tập thể lớp 10C5</p>
+
+      <div class="actions actions--center">
+        <button id="openAnotherBtn" class="btn btn--primary" type="button">Mở một lá thư khác</button>
+        <button id="restartBtn" class="btn btn--ghost btn--sm" type="button">Xem lại từ đầu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MUSIC PLAYER ============ -->
+  <button
+    id="musicToggle"
+    class="music-player"
+    type="button"
+    data-state="off"
+    aria-pressed="false"
+    aria-label="Bật nhạc nền"
+  >
+    <span class="music-player__icon" aria-hidden="true">
+      <svg id="musicIconPlay" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5v14l11-7-11-7z" fill="currentColor"/>
+      </svg>
+      <svg id="musicIconPause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" hidden>
+        <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+        <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+      </svg>
+    </span>
+    <span id="musicLabel" class="music-player__label">Bật nhạc</span>
+  </button>
+
+  <p id="musicToast" class="music-player__toast" role="status" hidden></p>
+
+</main>
+
+<audio id="bgMusic" preload="none" loop>
+  <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+  <source src="assets/audio/background-music.ogg" type="audio/ogg">
+</audio>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
